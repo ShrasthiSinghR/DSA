@@ -1,27 +1,26 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-        int freq[26] = {0};
+        unordered_map<char,int>mp;
+        for(int i=0;i<s.size();i++)
+        {
+            char ch=s[i];
+            mp[ch]++;
 
-        // Step 1: Count frequency
-        for (char ch : s) {
-            freq[ch - 'a']++;
         }
+        int j=0;
 
-        // Step 2: Put characters in stack
-        stack<pair<char, int>> st;
-
-        for (int i = s.length() - 1; i >= 0; i--) {
-            if (freq[s[i] - 'a'] == 1) {
-                st.push({s[i], i});
+        while(j<s.size())
+        {
+            char ch=s[j];
+            if(mp[ch]==1)
+            {
+                return j;
+               
             }
+            j++;
         }
-
-        // Step 3: Top is the first unique character
-        if (!st.empty()) {
-            return st.top().second;
-        }
-
         return -1;
+        
     }
 };
